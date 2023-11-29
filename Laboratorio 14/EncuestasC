@@ -51,7 +51,7 @@ namespace Encuestas
             }
 
             Console.Write("===============================\n"+
-                "Presione una tecla para regresar ...");
+                "Presione una tecla para regresar al menú ...");
             Console.ReadKey();
         }
 
@@ -74,7 +74,7 @@ namespace Encuestas
             ConteoEdades(51, 60);
             ConteoEdades(61, int.MaxValue);
 
-            Mensaje("\nPresione una tecla para regresar ...");
+            Mensaje("\nPresione una tecla para regresar al menú ...");
             Console.ReadKey();
         }
 
@@ -105,7 +105,7 @@ namespace Encuestas
             Console.WriteLine($"{EdadVacunado:D2} se vacunaron");
             Console.WriteLine($"{EdadNoVacunado:D2} no se vacunaron");
 
-            Mensaje("\nPresione una tecla para regresar ...");
+            Mensaje("\nPresione una tecla para regresar al menú ...");
             Console.ReadKey();
         }
         private int ContarVacunados()
