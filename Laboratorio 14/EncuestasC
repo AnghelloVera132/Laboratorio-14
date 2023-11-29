@@ -1,1 +1,140 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
+namespace Encuestas
+{
+    internal class EncuestasC
+    {
+        private const int RptsMax = 100;
+        private int[] edades = new int[RptsMax];
+        private bool[] vacunado = new bool[RptsMax];
+        private int total = 0;
+
+        public void quiz()
+        {
+            Console.Clear();
+            Console.Write("===============================\n" +
+            "Encuesta de vacunación\n" +
+            "===============================\n");
+
+            Console.Write("Ingrese la edad: ");
+            int edad = int.Parse(Console.ReadLine());
+
+            Console.Write("¿Está vacunado? (Sí/No): ");
+            bool vacunados = Console.ReadLine().Trim().Equals("Sí", StringComparison.OrdinalIgnoreCase);
+
+            edades[RptsMax] = edad;
+            vacunado[total] = vacunados;
+            total++;
+
+            Console.Clear();
+            Console.Write("===============================\n"+
+                "¡Encuesta Realizada!\n"+
+                "===============================\n");
+            Console.Write("Presione una tecla para regresar al menú...");
+            Console.ReadKey();
+        }
+
+        public void Data()
+        {
+            Console.Clear();
+            Console.Write("===============================\n" +
+                "Datos de la encuesta" +
+                "===============================\n"+
+                "ID | Edad | Vacunado");
+            for (int i = 0; i < total; i++)
+            {
+                Console.WriteLine($"{i:D4} | {edades[i]:D2} | {(vacunado[i] ? "Sí" : "No")}");
+            }
+
+            Console.Write("===============================\n"+
+                "Presione una tecla para regresar ...");
+            Console.ReadKey();
+        }
+
+        public void Resultados()
+        {
+            Console.Clear();
+            Console.Write("===============================\n" +
+                "Resultados de la encuesta"+
+                "===============================\n");
+            int VacunadosCount = ContarVacunados();
+            int NoVacunadosCount = total - VacunadosCount;
+            Mensaje($"{VacunadosCount:D2} personas se han vacunado");
+            Mensaje($"{NoVacunadosCount:D2} personas no se han vacunado");
+
+            Mensaje("Existen:");
+            ConteoEdades(1, 20);
+            ConteoEdades(21, 30);
+            ConteoEdades(31, 40);
+            ConteoEdades(41, 50);
+            ConteoEdades(51, 60);
+            ConteoEdades(61, int.MaxValue);
+
+            Mensaje("\nPresione una tecla para regresar ...");
+            Console.ReadKey();
+        }
+
+        public void EdadPersona()
+        {
+            Console.Clear();
+            Console.Write("===============================\n"+
+                "Buscar Personas por Edad"+
+                "===============================\n");
+
+            Console.Write("¿Qué edad quieres buscar?: ");
+            int searchAge = int.Parse(Console.ReadLine());
+
+            int EdadVacunado = 0;
+            int EdadNoVacunado = 0;
+
+            for (int i = 0; i < total; i++)
+            {
+                if (edades[i] == searchAge)
+                {
+                    if (vacunado[i])
+                        EdadVacunado++;
+                    else
+                        EdadNoVacunado++;
+                }
+            }
+
+            Console.WriteLine($"{EdadVacunado:D2} se vacunaron");
+            Console.WriteLine($"{EdadNoVacunado:D2} no se vacunaron");
+
+            Mensaje("\nPresione una tecla para regresar ...");
+            Console.ReadKey();
+        }
+        private int ContarVacunados()
+        {
+            int contador = 0;
+            for (int i = 0; i < total; i++)
+            {
+                if (vacunado[i])
+                {
+                    contador++;
+                }
+            }
+            return contador;
+        }
+        private static void Mensaje(string mensaje)
+        {
+            Console.WriteLine(mensaje);
+        }
+        private void ConteoEdades(int Inicioedad, int FinEdad)
+        {
+            int conteo = 0;
+            for (int i = 0; i < total; i++)
+            {
+                if (edades[i] >= Inicioedad && edades[i] <= FinEdad)
+                {
+                    conteo++;
+                }
+            }
+            Console.WriteLine($"{conteo:D2} personas entre {Inicioedad:D2} y {FinEdad:D2} años");
+        }
+    }
+}
